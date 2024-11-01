@@ -1033,7 +1033,7 @@ nav::-webkit-scrollbar,
     }
 }
 
-/* 滾動提示的新樣式 */
+/* 修改滾動提示樣式 */
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
@@ -1043,14 +1043,16 @@ nav::-webkit-scrollbar,
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    z-index: 10;
 }
 
 .scroll-text {
-    color: #fff;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-    animation: glow 2s ease-in-out infinite alternate;
+    color: #3498db;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+    animation: glowText 2s ease-in-out infinite;
 }
 
 .scroll-arrow {
@@ -1059,17 +1061,19 @@ nav::-webkit-scrollbar,
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
 }
 
 .scroll-arrow span {
-    width: 20px;
-    height: 20px;
-    border-bottom: 2px solid #3498db;
-    border-right: 2px solid #3498db;
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-bottom: 3px solid #3498db;
+    border-right: 3px solid #3498db;
     transform: rotate(45deg);
-    animation: scrollArrow 2s infinite;
+    animation: scrollDown 2s infinite;
     opacity: 0;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
 }
 
 .scroll-arrow span:nth-child(1) {
@@ -1084,49 +1088,47 @@ nav::-webkit-scrollbar,
     animation-delay: 0.4s;
 }
 
-@keyframes scrollArrow {
-    0% {
-        opacity: 0;
-        transform: rotate(45deg) translate(-20px, -20px);
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: rotate(45deg) translate(20px, 20px);
-    }
-}
-
-@keyframes glow {
-    from {
+@keyframes glowText {
+    0%, 100% {
+        color: #3498db;
         text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
     }
-    to {
+    50% {
+        color: #2980b9;
         text-shadow: 0 0 20px rgba(52, 152, 219, 0.8),
                      0 0 30px rgba(52, 152, 219, 0.6);
     }
 }
 
-/* 底部提示的特殊樣式 */
-#contact .scroll-hint {
-    margin-top: 2rem;
-    text-align: center;
-}
-
-#contact .scroll-hint p {
-    color: var(--accent-color);
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    animation: bounce 2s infinite;
-    text-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
+@keyframes scrollDown {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-10px, -10px);
+        border-color: #3498db;
     }
     50% {
-        transform: translateY(-5px);
+        opacity: 1;
+        border-color: #2980b9;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(10px, 10px);
+        border-color: #3498db;
+    }
+}
+
+/* 手機版調整 */
+@media screen and (max-width: 768px) {
+    .scroll-indicator {
+        bottom: 20px;
+    }
+    
+    .scroll-text {
+        font-size: 1rem;
+    }
+    
+    .scroll-arrow span {
+        width: 12px;
+        height: 12px;
     }
 }
