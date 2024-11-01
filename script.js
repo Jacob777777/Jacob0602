@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (letter.length === currentText.length) {
             setTimeout(() => {
                 index = 0;
-                count++;２
+                count++;
             }, 2000);
         }
         setTimeout(type, 200);
