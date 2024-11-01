@@ -378,6 +378,11 @@ section {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 
 .gallery-section .project-item:hover {
@@ -474,11 +479,15 @@ section {
 }
 
 .about-item h3 {
+    color: #ffffff;
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
-    color: var(--primary-color);
+}
+
+.about-item p {
+    color: #ffffff;
 }
 
 .skills {
@@ -497,38 +506,135 @@ section {
 
 /* 聯絡區塊樣式 */
 .contact-section {
-    background: var(--light-gray);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), #1a2634);
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 4rem;
 }
 
-.contact-container {
-    max-width: 800px;
-    margin: 0 auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.contact-container::-webkit-scrollbar {
-    display: none;
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(52, 152, 219, 0.08) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .contact-info {
     display: flex;
     justify-content: center;
     gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.contact-item {
+.contact-card {
+    flex: 1;
+    max-width: 400px;
+}
+
+.contact-link {
+    text-decoration: none;
+    background: rgba(52, 152, 219, 0.08);
+    border: 1px solid rgba(52, 152, 219, 0.15);
+    border-radius: 15px;
+    padding: 2rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.contact-icon {
+    background: rgba(52, 152, 219, 0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.contact-icon i {
+    font-size: 1.8rem;
+    color: #3498db;
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.contact-text h3 {
+    color: #3498db;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-text p {
+    color: #ffffff;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.contact-link:hover {
+    transform: translateY(-5px);
+    background: rgba(52, 152, 219, 0.12);
+    box-shadow: 0 5px 20px rgba(52, 152, 219, 0.25);
+}
+
+.contact-link:hover .contact-icon {
+    background: rgba(52, 152, 219, 0.3);
+    transform: scale(1.1);
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .contact-info {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .contact-card {
+        max-width: 100%;
+    }
+
+    .contact-link {
+        padding: 1.5rem;
+    }
+
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .contact-icon i {
+        font-size: 1.5rem;
+    }
+}
+
+.contact-section .section-title {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-container {
+    position: relative;
+    z-index: 1;
 }
 
 /* 頁尾樣式 */
 footer {
-    background: var(--primary-color);
+    background: #1a2634;
     color: var(--white);
     padding: 3rem 2rem;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .social-links {
@@ -607,7 +713,9 @@ footer {
 }
 
 .project-item {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 2rem;
     margin-bottom: 1.5rem;
     border-radius: 10px;
@@ -621,13 +729,13 @@ footer {
 }
 
 .project-item h3 {
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
 }
 
 .project-item p {
-    color: #666;
+    color: #ffffff;
     font-size: 0.95rem;
 }
 
@@ -1131,4 +1239,59 @@ nav::-webkit-scrollbar,
         width: 12px;
         height: 12px;
     }
+}
+
+/* 修改文字顏色相關的樣式 */
+.project-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.project-item h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.project-item p {
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+/* 確保其他區塊的文字顏色 */
+.section-title {
+    color: #ffffff !important;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.about-item h3 {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.about-item p {
+    color: #ffffff;
+}
+
+.contact-item p {
+    color: #ffffff;
+}
+
+/* 確保在深色背景下的文字可見性 */
+.gallery-section,
+.about-section,
+.contact-section {
+    color: #ffffff;
+    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.85));
 }
