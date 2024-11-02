@@ -183,13 +183,12 @@ nav {
         padding: 1rem 0;
         flex-direction: column;
         align-items: center;
-        box-shadow: var(--shadow);
         gap: 1rem;
+        z-index: 999;
     }
 
     .nav-links.active {
         display: flex;
-        animation: slideDown 0.3s ease-out forwards;
     }
 
     .menu-toggle {
@@ -968,14 +967,15 @@ nav::-webkit-scrollbar,
     .nav-links {
         display: none;
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: 0;
         width: 100%;
         background: rgba(255, 255, 255, 0.98);
         padding: 1rem 0;
         flex-direction: column;
         align-items: center;
-        box-shadow: var(--shadow);
+        gap: 1rem;
+        z-index: 999;
     }
 
     .nav-links.active {
@@ -986,7 +986,7 @@ nav::-webkit-scrollbar,
         display: block;
     }
 
-    /* 英雄區塊調整 */
+    /* 英雄塊調整 */
     .hero h1 .greeting {
         font-size: 1.8rem;
     }
@@ -1134,7 +1134,7 @@ nav::-webkit-scrollbar,
     }
 }
 
-/* 確保在橫屏模式下的顯示 */
+/* 確保在橫屏模���下的顯示 */
 @media screen and (orientation: landscape) and (max-height: 500px) {
     .hero {
         padding: 70px 0 30px;
@@ -1294,4 +1294,63 @@ nav::-webkit-scrollbar,
 .contact-section {
     color: #ffffff;
     background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.85));
+}
+
+/* 修改联系信息卡片样式 */
+@media screen and (max-width: 768px) {
+    .contact-info {
+        flex-direction: column;
+        padding: 0 1rem;
+        width: 100%;
+    }
+
+    .contact-card {
+        width: 100%;
+        max-width: none;
+    }
+
+    .contact-link {
+        padding: 1.5rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        width: 100%;
+        word-break: break-all;
+    }
+
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        flex-shrink: 0;
+    }
+
+    .contact-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .contact-text h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .contact-text p {
+        font-size: 0.9rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        width: 100%;
+    }
+}
+
+/* 添加更小屏幕的样式调整 */
+@media screen and (max-width: 480px) {
+    .contact-link {
+        padding: 1.2rem;
+    }
+
+    .contact-text p {
+        font-size: 0.85rem;
+    }
 }
