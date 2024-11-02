@@ -19,6 +19,7 @@
     -ms-user-select: none;        /* IE/Edge */
     user-select: none;            /* 標準語法 */
     -webkit-touch-callout: none;  /* iOS Safari */
+    -webkit-tap-highlight-color: transparent;  /* 移除 iOS 點擊時的反饋 */
 }
 
 *::-webkit-scrollbar {
@@ -1134,7 +1135,7 @@ nav::-webkit-scrollbar,
     }
 }
 
-/* 確保在橫屏模���下的顯示 */
+/* 確保在橫屏模式下的顯示 */
 @media screen and (orientation: landscape) and (max-height: 500px) {
     .hero {
         padding: 70px 0 30px;
@@ -1353,4 +1354,108 @@ nav::-webkit-scrollbar,
     .contact-text p {
         font-size: 0.85rem;
     }
+}
+
+/* WeChat 圖標顏色 */
+.social-icon .fa-weixin {
+    color: #07C160;
+}
+
+/* 彈窗樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background-color: transparent;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.qr-code {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.close-modal {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-45%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+}
+
+/* 手機版調整 */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 85%;
+        padding: 15px;
+    }
+    
+    .close-modal {
+        right: 15px;
+        top: 15px;
+        font-size: 30px;
+    }
+}
+
+/* 確保所有可點擊元素都不會出現選取框 */
+a, button, .menu-toggle, .social-icon, .contact-link, .close-modal {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none;
+}
+
+/* 修改點擊狀態的樣式 */
+a:active, button:active, .menu-toggle:active, .social-icon:active, .contact-link:active {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 確保即使在點擊狀態下也不會出現藍框 */
+a:focus, button:focus, .menu-toggle:focus, .social-icon:focus, .contact-link:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
