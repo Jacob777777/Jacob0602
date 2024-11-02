@@ -39,4 +39,36 @@ document.addEventListener('DOMContentLoaded', function() {
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
     });
+
+    // WeChat 彈窗控制
+    const wechatLink = document.getElementById('wechat-link');
+    const wechatModal = document.getElementById('wechat-modal');
+    const closeModal = document.querySelector('.close-modal');
+
+    wechatLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        wechatModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // 防止背景滾動
+    });
+
+    closeModal.addEventListener('click', function() {
+        wechatModal.style.display = 'none';
+        document.body.style.overflow = ''; // 恢復背景滾動
+    });
+
+    // 點擊彈窗外部關閉
+    wechatModal.addEventListener('click', function(e) {
+        if (e.target === wechatModal) {
+            wechatModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+
+    // ESC 鍵關閉彈窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && wechatModal.style.display === 'block') {
+            wechatModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
 });
