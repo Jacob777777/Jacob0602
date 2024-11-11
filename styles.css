@@ -1459,3 +1459,116 @@ a:focus, button:focus, .menu-toggle:focus, .social-icon:focus, .contact-link:foc
     outline: none;
     -webkit-tap-highlight-color: transparent;
 }
+
+/* 語言選擇器樣式 */
+.language-selector {
+    position: relative;
+    margin-left: 2rem;
+    z-index: 1000;
+}
+
+.selected-lang {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.selected-lang:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flag-icon {
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.selected-lang span {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.selected-lang i {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+}
+
+.language-selector.active .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-selector.active .selected-lang i {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.lang-dropdown li:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.lang-dropdown li:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.lang-dropdown span {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* 響應式調整 */
+@media screen and (max-width: 768px) {
+    .language-selector {
+        margin-left: 1rem;
+    }
+
+    .selected-lang span {
+        display: none;
+    }
+
+    .selected-lang {
+        padding: 0.5rem;
+    }
+
+    .selected-lang i {
+        margin-left: 0.2rem;
+    }
+}
