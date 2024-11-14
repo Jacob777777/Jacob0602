@@ -197,7 +197,7 @@ const translations = {
                 },
                 {
                     title: 'システム最適化',
-                    desc: '不要ファイルの削除、パフォーマンス向上、全体的な効率化'
+                    desc: '不要ファイルの削除、パフォーマンス向上、全体的��効率化'
                 },
                 {
                     title: 'トラブルシューティング',
@@ -236,6 +236,89 @@ const translations = {
             instagram: 'Instagram',
             line: 'Line',
             wechat: 'WeChat'
+        }
+    },
+    'zh-CN': {
+        nav: {
+            home: '首页',
+            projects: '专长区',
+            about: '关于我',
+            contact: '联系我'
+        },
+        logo: {
+            subtitle: '个人档案'
+        },
+        hero: {
+            greeting: '你好，我是',
+            name: '张以乐',
+            titles: ['高中生', '程序爱好者', '系统维护者'],
+            description: [
+                '热爱信息科技 / 喜欢研究电脑 / 对新技术充满热情',
+                '从小就对电脑充满兴趣，喜欢探索各种新技术',
+                '梦想成为一名优秀的软件工程师，用技术改变世界'
+            ],
+            scrollText: '探索更多'
+        },
+        projects: {
+            title: '专长区',
+            items: [
+                {
+                    title: 'AI工具应用',
+                    desc: '使用 ChatGPT、Midjourney 等 AI 工具协助工作'
+                },
+                {
+                    title: '电脑组装',
+                    desc: '帮您挑选零件、组装电脑，打造最适合的配备'
+                },
+                {
+                    title: '系统重装',
+                    desc: 'Windows 系统重新安装，解决系统变慢、中毒等问题'
+                },
+                {
+                    title: '电脑维修',
+                    desc: '解决电脑当机、蓝屏、无法开机等各种故障问题'
+                },
+                {
+                    title: '系统优化',
+                    desc: '清理系统垃圾、加快电脑运行速度、提升电脑整体运作效能'
+                },
+                {
+                    title: '故障排除',
+                    desc: '解决 Windows 系统各种错误、当机、运作异常等问题'
+                },
+                {
+                    title: 'Linux安装',
+                    desc: '专业安装 Kali、Ubuntu 等 Linux 操作系统及相关工具'
+                }
+            ]
+        },
+        about: {
+            title: '关于我',
+            background: {
+                title: '专业背景',
+                content: '我还只是个高中生，目前只有MOCC证照＞﹏＜'
+            },
+            personality: {
+                title: '个人特质',
+                content: '喜欢探索创新解决方案，善于团队合作。相信技术能够改善人们的生活品质。'
+            },
+            skills: {
+                title: '技术技能',
+                items: ['AI应用', '程序语言研究', '系统维护', '软件应用']
+            }
+        },
+        contact: {
+            title: '与我联系',
+            email: '电子邮件',
+            phone: '联系电话'
+        },
+        footer: {
+            copyright: '© 2024 张以乐个人网站 版权所有'
+        },
+        social: {
+            instagram: 'Instagram',
+            line: 'Line',
+            wechat: '微信'
         }
     }
 };
