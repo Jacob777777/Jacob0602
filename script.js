@@ -8,13 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
         once: true
     });
 
-    // 打字效果
-    let texts = translations[currentLang].hero.titles; // 使用當前語言的標題
+    // 打字效果相關變量
+    let texts = translations[currentLang].hero.titles;
     let count = 0;
     let index = 0;
     let currentText = '';
     let letter = '';
 
+    // 打字效果函數
     function type() {
         if (!texts || count === texts.length) {
             count = 0;
@@ -22,7 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
         currentText = texts[count];
         if (currentText) {
             letter = currentText.slice(0, ++index);
-            document.querySelector('.typing-text').textContent = letter;
+            const typingElement = document.querySelector('.typing-text');
+            if (typingElement) {
+                typingElement.textContent = letter;
+            }
             if (letter.length === currentText.length) {
                 setTimeout(() => {
                     index = 0;
@@ -36,72 +40,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // 啟動打字效果
     type();
 
-    // 漢堡選單
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    // WeChat 彈窗控制
-    const wechatLink = document.getElementById('wechat-link');
-    const wechatModal = document.getElementById('wechat-modal');
-    const closeModal = document.querySelector('.close-modal');
-
-    wechatLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        wechatModal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    });
-
-    closeModal.addEventListener('click', function() {
-        wechatModal.style.display = 'none';
-        document.body.style.overflow = '';
-    });
-
-    wechatModal.addEventListener('click', function(e) {
-        if (e.target === wechatModal) {
-            wechatModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && wechatModal.style.display === 'block') {
-            wechatModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    });
-
-    // 語言選擇器相關代碼
-    const langSelector = document.querySelector('.language-selector');
-    const selectedLang = document.querySelector('.selected-lang');
-    const langOptions = document.querySelectorAll('.lang-dropdown li');
-
     // 語言切換功能
     function changeLang(lang) {
+        console.log('Changing language to:', lang); // 調試日誌
+        
         if (!translations[lang]) {
             console.error('Translation not found for language:', lang);
             return;
         }
 
         try {
-            currentLang = lang; // 更新當前語言
+            // 更新當前語言
+            currentLang = lang;
+            texts = translations[lang].hero.titles;
             
             // 更新導航欄
             document.querySelector('.logo-subtitle').textContent = translations[lang].logo.subtitle;
-            document.querySelector('a[href="#home"]').textContent = translations[lang].nav.home;
-            document.querySelector('a[href="#projects"]').textContent = translations[lang].nav.projects;
-            document.querySelector('a[href="#about"]').textContent = translations[lang].nav.about;
-            document.querySelector('a[href="#contact"]').textContent = translations[lang].nav.contact;
+            
+            // 更新導航鏈接
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks[0].textContent = translations[lang].nav.home;
+            navLinks[1].textContent = translations[lang].nav.projects;
+            navLinks[2].textContent = translations[lang].nav.about;
+            navLinks[3].textContent = translations[lang].nav.contact;
 
             // 更新英雄區塊
             document.querySelector('.greeting').textContent = translations[lang].hero.greeting;
             document.querySelector('.name').textContent = translations[lang].hero.name;
             
-            // 更新打字效果的文字
-            texts = translations[lang].hero.titles;
+            // 重置打字效果
             count = 0;
             index = 0;
             
@@ -114,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 更新滾動提示
             document.querySelector('.scroll-text').textContent = translations[lang].hero.scrollText;
             
-            // 更新專長區標題和內容
+            // 更新專長區
             document.querySelector('#projects .section-title').textContent = translations[lang].projects.title;
             const projectItems = document.querySelectorAll('.project-item');
             translations[lang].projects.items.forEach((item, i) => {
@@ -148,37 +115,57 @@ document.addEventListener('DOMContentLoaded', function() {
             // 更新頁尾版權信息
             document.querySelector('.copyright').textContent = translations[lang].footer.copyright;
             
-            // 更新 HTML 語言屬性
-            document.documentElement.lang = lang;
-            
+            // 更新社交媒體工具提示
+            if (translations[lang].social) {
+                const socialTooltips = document.querySelectorAll('.social-tooltip');
+                socialTooltips[0].textContent = translations[lang].social.instagram;
+                socialTooltips[1].textContent = translations[lang].social.line;
+                socialTooltips[2].textContent = translations[lang].social.wechat;
+            }
+
             // 更新語言選擇器顯示
+            const selectedLang = document.querySelector('.selected-lang');
             const langOption = document.querySelector(`[data-lang="${lang}"]`);
-            if (langOption) {
+            if (langOption && selectedLang) {
                 const imgSrc = langOption.querySelector('img').src;
                 const langText = langOption.querySelector('span').textContent;
                 selectedLang.querySelector('img').src = imgSrc;
                 selectedLang.querySelector('span').textContent = langText;
             }
 
+            // 更新 HTML 語言屬性
+            document.documentElement.lang = lang;
+            
             // 儲存語言偏好
             localStorage.setItem('preferredLanguage', lang);
+
+            console.log('Language changed successfully'); // 調試日誌
 
         } catch (error) {
             console.error('Error updating language:', error);
         }
     }
 
+    // 語言選擇器事件監聽
+    const langSelector = document.querySelector('.language-selector');
+    const selectedLang = document.querySelector('.selected-lang');
+    const langOptions = document.querySelectorAll('.lang-dropdown li');
+
     // 點擊語言選擇器
-    selectedLang.addEventListener('click', (e) => {
-        e.stopPropagation(); // 防止事件冒泡
-        langSelector.classList.toggle('active');
-    });
+    if (selectedLang) {
+        selectedLang.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langSelector.classList.toggle('active');
+            console.log('Language selector clicked'); // 調試日誌
+        });
+    }
 
     // 點擊語言選項
     langOptions.forEach(option => {
         option.addEventListener('click', (e) => {
-            e.stopPropagation(); // 防止事件冒泡
+            e.stopPropagation();
             const lang = option.getAttribute('data-lang');
+            console.log('Language option clicked:', lang); // 調試日誌
             changeLang(lang);
             langSelector.classList.remove('active');
         });
@@ -193,4 +180,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化語言
     changeLang(currentLang);
+
+    // WeChat 彈窗相關
+    const wechatLink = document.getElementById('wechat-link');
+    const wechatModal = document.getElementById('wechat-modal');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 阻止 WeChat 鏈接的默認行為並顯示彈窗
+    wechatLink.addEventListener('click', function(e) {
+        e.preventDefault(); // 阻止默認的跳轉行為
+        wechatModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // 防止背景滾動
+    });
+
+    // 關閉按鈕點擊事件
+    closeModal.addEventListener('click', function() {
+        wechatModal.style.display = 'none';
+        document.body.style.overflow = ''; // 恢復背景滾動
+    });
+
+    // 點擊彈窗背景關閉
+    wechatModal.addEventListener('click', function(e) {
+        if (e.target === wechatModal) {
+            wechatModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+
+    // ESC 鍵關閉彈窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && wechatModal.style.display === 'block') {
+            wechatModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
 });
