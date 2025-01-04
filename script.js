@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 首先定義當前語言
     let currentLang = localStorage.getItem('preferredLanguage') || 'zh-TW';
     
+    // 確保 translations 存在
+    if (typeof window.translations === 'undefined') {
+        console.error('Translations not loaded!');
+        return;
+    }
+
     // 初始化 AOS 動畫
     AOS.init({
         duration: 1000,
@@ -9,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 打字效果相關變量
-    let texts = translations[currentLang].hero.titles;
+    let texts = window.translations[currentLang].hero.titles;
     let count = 0;
     let index = 0;
     let currentText = '';
@@ -42,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 語言切換功能
     function changeLang(lang) {
-        console.log('Changing language to:', lang); // 調試日誌
+        console.log('Changing language to:', lang);
         
-        if (!translations[lang]) {
+        if (!window.translations[lang]) {
             console.error('Translation not found for language:', lang);
             return;
         }
@@ -52,21 +58,21 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // 更新當前語言
             currentLang = lang;
-            texts = translations[lang].hero.titles;
+            texts = window.translations[lang].hero.titles;
             
             // 更新導航欄
-            document.querySelector('.logo-subtitle').textContent = translations[lang].logo.subtitle;
+            document.querySelector('.logo-subtitle').textContent = window.translations[lang].logo.subtitle;
             
             // 更新導航鏈接
             const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks[0].textContent = translations[lang].nav.home;
-            navLinks[1].textContent = translations[lang].nav.projects;
-            navLinks[2].textContent = translations[lang].nav.about;
-            navLinks[3].textContent = translations[lang].nav.contact;
+            navLinks[0].textContent = window.translations[lang].nav.home;
+            navLinks[1].textContent = window.translations[lang].nav.projects;
+            navLinks[2].textContent = window.translations[lang].nav.about;
+            navLinks[3].textContent = window.translations[lang].nav.contact;
 
             // 更新英雄區塊
-            document.querySelector('.greeting').textContent = translations[lang].hero.greeting;
-            document.querySelector('.name').textContent = translations[lang].hero.name;
+            document.querySelector('.greeting').textContent = window.translations[lang].hero.greeting;
+            document.querySelector('.name').textContent = window.translations[lang].hero.name;
             
             // 重置打字效果
             count = 0;
@@ -74,17 +80,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 更新描述
             const descriptions = document.querySelectorAll('.hero-description p');
-            translations[lang].hero.description.forEach((text, i) => {
+            window.translations[lang].hero.description.forEach((text, i) => {
                 if (descriptions[i]) descriptions[i].textContent = text;
             });
             
             // 更新滾動提示
-            document.querySelector('.scroll-text').textContent = translations[lang].hero.scrollText;
+            document.querySelector('.scroll-text').textContent = window.translations[lang].hero.scrollText;
             
             // 更新專長區
-            document.querySelector('#projects .section-title').textContent = translations[lang].projects.title;
+            document.querySelector('#projects .section-title').textContent = window.translations[lang].projects.title;
             const projectItems = document.querySelectorAll('.project-item');
-            translations[lang].projects.items.forEach((item, i) => {
+            window.translations[lang].projects.items.forEach((item, i) => {
                 if (projectItems[i]) {
                     projectItems[i].querySelector('h3').textContent = item.title;
                     projectItems[i].querySelector('p').textContent = item.desc;
@@ -92,35 +98,35 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             // 更新關於我區塊
-            document.querySelector('#about .section-title').textContent = translations[lang].about.title;
+            document.querySelector('#about .section-title').textContent = window.translations[lang].about.title;
             const aboutItems = document.querySelectorAll('.about-item');
-            aboutItems[0].querySelector('h3').textContent = translations[lang].about.background.title;
-            aboutItems[0].querySelector('p').textContent = translations[lang].about.background.content;
-            aboutItems[1].querySelector('h3').textContent = translations[lang].about.personality.title;
-            aboutItems[1].querySelector('p').textContent = translations[lang].about.personality.content;
-            aboutItems[2].querySelector('h3').textContent = translations[lang].about.skills.title;
+            aboutItems[0].querySelector('h3').textContent = window.translations[lang].about.background.title;
+            aboutItems[0].querySelector('p').textContent = window.translations[lang].about.background.content;
+            aboutItems[1].querySelector('h3').textContent = window.translations[lang].about.personality.title;
+            aboutItems[1].querySelector('p').textContent = window.translations[lang].about.personality.content;
+            aboutItems[2].querySelector('h3').textContent = window.translations[lang].about.skills.title;
             
             // 更新技能標籤
             const skillTags = document.querySelectorAll('.skill-tag');
-            translations[lang].about.skills.items.forEach((skill, i) => {
+            window.translations[lang].about.skills.items.forEach((skill, i) => {
                 if (skillTags[i]) skillTags[i].textContent = skill;
             });
             
             // 更新聯絡區塊
-            document.querySelector('#contact .section-title').textContent = translations[lang].contact.title;
+            document.querySelector('#contact .section-title').textContent = window.translations[lang].contact.title;
             const contactTexts = document.querySelectorAll('.contact-text h3');
-            contactTexts[0].textContent = translations[lang].contact.email;
-            contactTexts[1].textContent = translations[lang].contact.phone;
+            contactTexts[0].textContent = window.translations[lang].contact.email;
+            contactTexts[1].textContent = window.translations[lang].contact.phone;
             
             // 更新頁尾版權信息
-            document.querySelector('.copyright').textContent = translations[lang].footer.copyright;
+            document.querySelector('.copyright').textContent = window.translations[lang].footer.copyright;
             
             // 更新社交媒體工具提示
-            if (translations[lang].social) {
+            if (window.translations[lang].social) {
                 const socialTooltips = document.querySelectorAll('.social-tooltip');
-                socialTooltips[0].textContent = translations[lang].social.instagram;
-                socialTooltips[1].textContent = translations[lang].social.line;
-                socialTooltips[2].textContent = translations[lang].social.wechat;
+                socialTooltips[0].textContent = window.translations[lang].social.instagram;
+                socialTooltips[1].textContent = window.translations[lang].social.line;
+                socialTooltips[2].textContent = window.translations[lang].social.wechat;
             }
 
             // 更新語言選擇器顯示
@@ -139,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 儲存語言偏好
             localStorage.setItem('preferredLanguage', lang);
 
-            console.log('Language changed successfully'); // 調試日誌
+            console.log('Language changed successfully');
 
         } catch (error) {
             console.error('Error updating language:', error);
@@ -156,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedLang.addEventListener('click', (e) => {
             e.stopPropagation();
             langSelector.classList.toggle('active');
-            console.log('Language selector clicked'); // 調試日誌
+            console.log('Language selector clicked');
         });
     }
 
@@ -165,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         option.addEventListener('click', (e) => {
             e.stopPropagation();
             const lang = option.getAttribute('data-lang');
-            console.log('Language option clicked:', lang); // 調試日誌
+            console.log('Language option clicked:', lang);
             changeLang(lang);
             langSelector.classList.remove('active');
         });
@@ -188,15 +194,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 阻止 WeChat 鏈接的默認行為並顯示彈窗
     wechatLink.addEventListener('click', function(e) {
-        e.preventDefault(); // 阻止默認的跳轉行為
+        e.preventDefault();
         wechatModal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // 防止背景滾動
+        document.body.style.overflow = 'hidden';
     });
 
     // 關閉按鈕點擊事件
     closeModal.addEventListener('click', function() {
         wechatModal.style.display = 'none';
-        document.body.style.overflow = ''; // 恢復背景滾動
+        document.body.style.overflow = '';
     });
 
     // 點擊彈窗背景關閉
